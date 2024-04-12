@@ -1,2 +1,2 @@
-# not-so-standard-package-rev
+# Not So Standard Package
 Revive
