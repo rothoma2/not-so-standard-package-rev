@@ -22,10 +22,5 @@ def main():
             print(model.predict())
         
 
-    args = util.get_args()
-    #json_string = json.dumps(ml_results)
-    # with open(args.output, "w") as file:
-    #     file.write(json_string)
-
 if __name__ == "__main__":
     main()

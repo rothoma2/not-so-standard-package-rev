@@ -4,7 +4,6 @@ import subprocess
 
 def load_yara_rules(folder_path):
     yara_rules = []
-    print("Method Loading Yar Rules")
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             #print(f"Rule {file}")
