@@ -2,3 +2,8 @@ pydantic
 ipython
 numpy 
 pytest
+openai==0.28
+xgboost
+scikit-learn
+pandas
+rich
