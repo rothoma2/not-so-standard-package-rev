@@ -56,13 +56,8 @@ class Model:
 
         if self.pandas_df["predicted_label"][0] == 1:
             
-            #print(f"This file is: MALICIOUS ! ! !: {self.pandas_df['file_name'][0]}")
-            console = Console()
-            console.print(f"This file is: [red]MALICIOUS[/red] ! ! !: {self.pandas_df['file_name'][0]}")
-            print("With a confidence score of: ", round(self.pandas_df["probability_xgboost"][0], 2))
-
             file_path = self.pandas_df["full_file_path"][0]
-            print(file_path)
+            print(f"Evaluating: {file_path}")
 
             with open(file_path, 'r') as file:
                 file_contents = file.read()
@@ -76,23 +71,20 @@ class Model:
                         Explanation:"""
                 
                 prompt = prompt + str(file_contents)
+                openai_analysis = self.ask_openai_analyst(prompt)
 
-                self.talk_with_chatgpt(prompt)
+                console = Console()
+                console.print(f"This file is: [red]MALICIOUS[/red] ! ! !: {self.pandas_df['file_name'][0]}")
+                print("With a confidence score of: ", round(self.pandas_df["probability_xgboost"][0], 2))
+                print(openai_analysis)
 
         else:
-            #print(f"This file is: OK ! ! !: {self.pandas_df['file_name'][0]}")
             console = Console()
             console.print(f"This file is: [green]OK[/green] ! ! !: {self.pandas_df['file_name'][0]}")
             print("With a confidence score of: ", round((1-self.pandas_df["probability_xgboost"][0]), 2))
 
-        #pprint(json.dumps(self.json_content))
-        #with open("debug.json", "w") as file:
-        #    file.write(json.dumps(self.json_content))
 
-
-
-
-    def talk_with_chatgpt(self, question_to_gpt):
+    def ask_openai_analyst(self, question_to_gpt):
 
         model_name="gpt-3.5-turbo"
 
@@ -110,4 +102,4 @@ class Model:
         )
 
         chatbot_response = response.choices[0].message['content']
-        print(chatbot_response.strip())
+        return chatbot_response.strip()
