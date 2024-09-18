@@ -5,7 +5,6 @@ from machine_learning.ml_model import Model
 from pprint import pprint
 
 def main():
-    #processing file
     util = Util()
     util.folder_exists()
 
